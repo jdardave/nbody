@@ -10,7 +10,7 @@
    contributed by cvergu
    slightly modified by bmmeijers
 */
-
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
 
