@@ -13,7 +13,7 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <iostream>
-
+#include <fstream>
 
 // these values are constant and not allowed to be changed
 const double SOLAR_MASS = 4 * M_PI * M_PI;
@@ -238,6 +238,7 @@ body state[] = {
 };
 
 
+
 int main(int argc, char **argv) {
     if (argc != 2) {
         std::cout << "This is " << argv[0] << std::endl;
@@ -251,7 +252,17 @@ int main(int argc, char **argv) {
         for (int i = 0; i < n; ++i) {
             advance(state, 0.01);
         }
+//        std::ofstream output_data;
+//        output_data.open("C:\\Users\\jdard\\OneDrive\\Desktop\\Msc_Geomatics\\Courses\\1st_semester\\GEO1000\\2021-2022\\assignment4\\nbody\\output.csv");
+//        output_data << "Name of the body " << "Position x " << "Position y " << "Position z \n" << std::endl;
+//        for (int j=0;j<BODIES_COUNT;j++) {
+//            for (int i = 0; i < DAYS_PER_YEAR; i++) {
+//                output_data << &body::name <<  &body::position << "\n"<< std::endl;
+//                output_data.close();
+            }
+        }
         std::cout << energy(state) << std::endl;
         return EXIT_SUCCESS;
     }
+
 }
