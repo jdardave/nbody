@@ -93,6 +93,8 @@ public:
 };
 
 
+int write(std::string basicString);
+
 void advance(body state[BODIES_COUNT], double dt) {
     /*
      * We precompute the quantity (r_i - r_j)
@@ -252,17 +254,28 @@ int main(int argc, char **argv) {
         for (int i = 0; i < n; ++i) {
             advance(state, 0.01);
         }
-//        std::ofstream output_data;
-//        output_data.open("C:\\Users\\jdard\\OneDrive\\Desktop\\Msc_Geomatics\\Courses\\1st_semester\\GEO1000\\2021-2022\\assignment4\\nbody\\output.csv");
-//        output_data << "Name of the body " << "Position x " << "Position y " << "Position z \n" << std::endl;
-//        for (int j=0;j<BODIES_COUNT;j++) {
-//            for (int i = 0; i < DAYS_PER_YEAR; i++) {
-//                output_data << &body::name <<  &body::position << "\n"<< std::endl;
-//                output_data.close();
-            }
-        }
+        std::string Filename ("C:\\Users\\jdard\\OneDrive\\Desktop\\Msc_Geomatics\\Courses\\1st_semester\\GEO1000\\2021-2022\\assignment4\\nbody\\output.csv");
+        write(Filename);
         std::cout << energy(state) << std::endl;
+
         return EXIT_SUCCESS;
     }
 
+}
+
+int write (std::string basicString ) {
+    std::ofstream output_data;
+    output_data.open(basicString);
+    char delimiter = ';';
+    output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
+                << "Position z" << std::endl;
+    for (int i = 0; i < BODIES_COUNT; ++i) {
+        const body &body1 = state[i];
+        for (int j = 0; j< DAYS_PER_YEAR; ++j) {
+            output_data << body1.name << delimiter << body1.position.x << delimiter << body1.position.y << delimiter
+                        << body1.position.z << std::endl;
+        }
+    }
+    output_data.close();
+    return 0;
 }
