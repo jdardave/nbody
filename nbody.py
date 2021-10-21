@@ -113,11 +113,21 @@ def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
     v[2] = pz / m
 
 
+def write(outfile):
+    with open(outfile, 'w') as f:
+        f.write("Name of the body,Position x,Position y,Position z\n")
+        for key in BODIES.keys():
+            body = key
+            pass
+
+
+
 def main(n, ref="sun"):
     offset_momentum(BODIES[ref])
     report_energy()
     advance(0.01, n)
     report_energy()
+    write(r'C:\Users\theoj\Documents\TUD\Q5\geo1000\assignment4\nbody\output2.csv')
 
 
 if __name__ == "__main__":

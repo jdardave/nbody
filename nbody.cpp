@@ -254,7 +254,7 @@ int main(int argc, char **argv) {
         for (int i = 0; i < n; ++i) {
             advance(state, 0.01);
         }
-        std::string Filename ("C:\\Users\\jdard\\OneDrive\\Desktop\\Msc_Geomatics\\Courses\\1st_semester\\GEO1000\\2021-2022\\assignment4\\nbody\\output.csv");
+        std::string Filename ("C:\\Users\\theoj\\Documents\\TUD\\Q5\\geo1000\\assignment4\\nbody\\output1.csv");
         write(Filename);
         std::cout << energy(state) << std::endl;
 
