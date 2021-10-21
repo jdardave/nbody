@@ -253,6 +253,7 @@ int main(int argc, char **argv) {
         std::cout << energy(state) << std::endl;
         for (int i = 0; i < n; ++i) {
             advance(state, 0.01);
+            std::cout<<state[i].name<<std::endl;
         }
         std::string Filename ("C:\\Users\\theoj\\Documents\\TUD\\Q5\\geo1000\\assignment4\\nbody\\output1.csv");
         write(Filename);
@@ -263,17 +264,17 @@ int main(int argc, char **argv) {
 
 }
 
-int write (std::string basicString ) {
+int write (std::string Filename){
     std::ofstream output_data;
-    output_data.open(basicString);
+    output_data.open(Filename);
     char delimiter = ';';
     output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
                 << "Position z" << std::endl;
-    for (int i = 0; i < BODIES_COUNT; ++i) {
-        const body &body1 = state[i];
-        for (int j = 0; j< DAYS_PER_YEAR; ++j) {
-            output_data << body1.name << delimiter << body1.position.x << delimiter << body1.position.y << delimiter
-                        << body1.position.z << std::endl;
+    for (unsigned int i = 0; i < BODIES_COUNT; ++i) {
+        for (unsigned int j = 0; j < 5; j+=1) {
+            advance(state,j);
+            output_data << state[i].name << delimiter << state[i].position.x << delimiter << state[i].position.y << delimiter
+                        << state[i].position.z<< std::endl;
         }
     }
     output_data.close();

@@ -130,7 +130,7 @@ def main(n, ref="sun"):
     write(r'C:\Users\theoj\Documents\TUD\Q5\geo1000\assignment4\nbody\output2.csv')
 
 
-if __name__ == "__main__":
+if __name__ == "_ _main__":
     if len(sys.argv) >= 2:
         main(int(sys.argv[1]))
         sys.exit(0)
