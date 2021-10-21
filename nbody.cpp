@@ -93,8 +93,6 @@ public:
 };
 
 
-int write(std::string basicString);
-
 void advance(body state[BODIES_COUNT], double dt) {
     /*
      * We precompute the quantity (r_i - r_j)
@@ -251,32 +249,38 @@ int main(int argc, char **argv) {
         const unsigned int n = atoi(argv[1]);
         offset_momentum(state);
         std::cout << energy(state) << std::endl;
-        for (int i = 0; i < n; ++i) {
-            advance(state, 0.01);
-            std::cout<<state[i].name<<std::endl;
+        std::string Filename ("..\\output1.csv");
+        std::ofstream output_data;
+        output_data.open(Filename);
+        char delimiter = ';';
+        output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
+                    << "Position z" << std::endl;
+        for (unsigned int j = 0; j < BODIES_COUNT; ++j) {
+            for (int i = 0; i < n; ++i) {
+                advance(state, 0.01);
+                output_data << state[j].name << delimiter << state[j].position.x << delimiter << state[j].position.y << delimiter
+                            << state[j].position.z<< std::endl;
+            }
         }
-        std::string Filename ("C:\\Users\\theoj\\Documents\\TUD\\Q5\\geo1000\\assignment4\\nbody\\output1.csv");
-        write(Filename);
+        output_data.close();
         std::cout << energy(state) << std::endl;
-
         return EXIT_SUCCESS;
     }
-
 }
 
-int write (std::string Filename){
-    std::ofstream output_data;
-    output_data.open(Filename);
-    char delimiter = ';';
-    output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
-                << "Position z" << std::endl;
-    for (unsigned int i = 0; i < BODIES_COUNT; ++i) {
-        for (unsigned int j = 0; j < 5; j+=1) {
-            advance(state,j);
-            output_data << state[i].name << delimiter << state[i].position.x << delimiter << state[i].position.y << delimiter
-                        << state[i].position.z<< std::endl;
-        }
-    }
-    output_data.close();
-    return 0;
-}
+//int write (std::string Filename){
+//    std::ofstream output_data;
+//    output_data.open(Filename);
+//    char delimiter = ';';
+//    output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
+//                << "Position z" << std::endl;
+//    for (unsigned int i = 0; i < BODIES_COUNT; ++i) {
+//        for (unsigned int j = 0; j < 5; j+=1) {
+//            advance(state,j);
+//            output_data << state[i].name << delimiter << state[i].position.x << delimiter << state[i].position.y << delimiter
+//                        << state[i].position.z<< std::endl;
+//        }
+//    }
+//    output_data.close();
+//    return 0;
+//}
