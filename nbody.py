@@ -11,12 +11,12 @@
 
 import sys
 from math import sqrt, pi as PI
-
+from time import perf_counter
 
 def combinations(l):
     result = []
     for x in range(len(l) - 1):
-        ls = l[x + 1:]
+        ls = l[x + 1 :]
         for y in ls:
             result.append((l[x][0], l[x][1], l[x][2], y[0], y[1], y[2]))
     return result
@@ -33,7 +33,7 @@ BODIES = {
             1.66007664274403694e-03 * DAYS_PER_YEAR,
             7.69901118419740425e-03 * DAYS_PER_YEAR,
             -6.90460016972063023e-05 * DAYS_PER_YEAR,
-        ],
+            ],
         9.54791938424326609e-04 * SOLAR_MASS,
     ),
     "saturn": (
@@ -42,7 +42,7 @@ BODIES = {
             -2.76742510726862411e-03 * DAYS_PER_YEAR,
             4.99852801234917238e-03 * DAYS_PER_YEAR,
             2.30417297573763929e-05 * DAYS_PER_YEAR,
-        ],
+            ],
         2.85885980666130812e-04 * SOLAR_MASS,
     ),
     "uranus": (
@@ -51,7 +51,7 @@ BODIES = {
             2.96460137564761618e-03 * DAYS_PER_YEAR,
             2.37847173959480950e-03 * DAYS_PER_YEAR,
             -2.96589568540237556e-05 * DAYS_PER_YEAR,
-        ],
+            ],
         4.36624404335156298e-05 * SOLAR_MASS,
     ),
     "neptune": (
@@ -60,7 +60,7 @@ BODIES = {
             2.68067772490389322e-03 * DAYS_PER_YEAR,
             1.62824170038242295e-03 * DAYS_PER_YEAR,
             -9.51592254519715870e-05 * DAYS_PER_YEAR,
-        ],
+            ],
         5.15138902046611451e-05 * SOLAR_MASS,
     ),
 }
@@ -114,21 +114,23 @@ def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
 
 
 def main(n, ref="sun"):
+    start = perf_counter()
     offset_momentum(BODIES[ref])
     report_energy()
-    # advance(0.01, n)
     report_energy()
-    with open("C:/Users/theoj/Documents/TUD/Q5/geo1000/assignment4/nbody/output2.csv", 'w') as f:
+    with open('output2.csv', 'w') as f:
         delimiter = ';'
-        f.write("Name of the body{}Position x{}Position y{}Position z\n".format(delimiter,delimiter,delimiter))
+        f.write("Name of the body{}Position x{}Position y{}Position z\n".format(delimiter, delimiter, delimiter))
         for key, value in BODIES.items():
             body = key
             for i in range(n):
                 advance(0.01, n)
-                f.write("{}{}{}{}{}{}{}\n".format(body,delimiter,value[0][0],delimiter,value[0][1],delimiter,value[0][2]))
+                f.write("{}{}{}{}{}{}{}\n".format(body, delimiter, value[0][0], delimiter, value[0][1], delimiter, value[0][2]))
+    end = perf_counter()
+    print("Time elapsed: {:.4f}".format(end-start))
 
 
-if __name__ == "_ _main__":
+if __name__ == "__main__":
     if len(sys.argv) >= 2:
         main(int(sys.argv[1]))
         sys.exit(0)
@@ -137,3 +139,5 @@ if __name__ == "_ _main__":
         print("Call this program with an integer as program argument")
         print("(to set the number of iterations for the n-body simulation).")
         sys.exit(1)
+
+

@@ -14,6 +14,8 @@
 #include <cmath>
 #include <iostream>
 #include <fstream>
+#include <ctime>
+#include <iomanip>
 
 // these values are constant and not allowed to be changed
 const double SOLAR_MASS = 4 * M_PI * M_PI;
@@ -92,6 +94,8 @@ public:
     double mass;
 };
 
+
+int write(std::string basicString);
 
 void advance(body state[BODIES_COUNT], double dt) {
     /*
@@ -240,6 +244,7 @@ body state[] = {
 
 
 int main(int argc, char **argv) {
+    std::clock_t begin_time = clock();
     if (argc != 2) {
         std::cout << "This is " << argv[0] << std::endl;
         std::cout << "Call this program with an integer as program argument" << std::endl;
@@ -264,23 +269,10 @@ int main(int argc, char **argv) {
         }
         output_data.close();
         std::cout << energy(state) << std::endl;
+        float time = float(clock() - begin_time)/CLOCKS_PER_SEC;
+        std::cout<<std::fixed<<std::setprecision(4)<< time <<std::endl;
+
         return EXIT_SUCCESS;
     }
 }
 
-//int write (std::string Filename){
-//    std::ofstream output_data;
-//    output_data.open(Filename);
-//    char delimiter = ';';
-//    output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
-//                << "Position z" << std::endl;
-//    for (unsigned int i = 0; i < BODIES_COUNT; ++i) {
-//        for (unsigned int j = 0; j < 5; j+=1) {
-//            advance(state,j);
-//            output_data << state[i].name << delimiter << state[i].position.x << delimiter << state[i].position.y << delimiter
-//                        << state[i].position.z<< std::endl;
-//        }
-//    }
-//    output_data.close();
-//    return 0;
-//}
