@@ -91,6 +91,7 @@ def advance(dt, n, bodies=SYSTEM, pairs=PAIRS):
             r[2] += dt * vz
 
 
+
 def report_energy(bodies=SYSTEM, pairs=PAIRS, e=0.0):
     for ((x1, y1, z1), v1, m1, (x2, y2, z2), v2, m2) in pairs:
         dx = x1 - x2
@@ -115,9 +116,9 @@ def offset_momentum(ref, bodies=SYSTEM, px=0.0, py=0.0, pz=0.0):
 
 def main(n, ref="sun"):
     start = perf_counter()
+    report_energy()
     offset_momentum(BODIES[ref])
-    report_energy()
-    report_energy()
+
     with open('output2.csv', 'w') as f:
         delimiter = ';'
         f.write("Name of the body{}Position x{}Position y{}Position z\n".format(delimiter, delimiter, delimiter))
@@ -126,9 +127,9 @@ def main(n, ref="sun"):
             for i in range(n):
                 advance(0.01, n)
                 f.write("{}{}{}{}{}{}{}\n".format(body, delimiter, value[0][0], delimiter, value[0][1], delimiter, value[0][2]))
+    report_energy()
     end = perf_counter()
     print("Time elapsed: {:.4f}".format(end-start))
-
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:

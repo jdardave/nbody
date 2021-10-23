@@ -95,7 +95,7 @@ public:
 };
 
 
-int write(std::string basicString);
+
 
 void advance(body state[BODIES_COUNT], double dt) {
     /*
@@ -260,8 +260,8 @@ int main(int argc, char **argv) {
         char delimiter = ';';
         output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
                     << "Position z" << std::endl;
-        for (unsigned int j = 0; j < BODIES_COUNT; ++j) {
-            for (int i = 0; i < n; ++i) {
+        for (unsigned int i = 0; i < n; ++i) {
+            for (unsigned int j = 0; j < BODIES_COUNT; ++j) {
                 advance(state, 0.01);
                 output_data << state[j].name << delimiter << state[j].position.x << delimiter << state[j].position.y << delimiter
                             << state[j].position.z<< std::endl;
@@ -271,7 +271,6 @@ int main(int argc, char **argv) {
         std::cout << energy(state) << std::endl;
         float time = float(clock() - begin_time)/CLOCKS_PER_SEC;
         std::cout<<std::fixed<<std::setprecision(4)<< time <<std::endl;
-
         return EXIT_SUCCESS;
     }
 }
