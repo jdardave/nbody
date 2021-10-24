@@ -260,9 +260,9 @@ int main(int argc, char **argv) {
         char delimiter = ';';
         output_data << "Name of the body" << delimiter << "Position x" << delimiter << "Position y" << delimiter
                     << "Position z" << std::endl;
-        for (unsigned int i = 0; i < n; ++i) {
-            for (unsigned int j = 0; j < BODIES_COUNT; ++j) {
-                advance(state, 0.01);
+        for (int i = 0; i < n; ++i) {
+            advance(state, 0.01);
+            for ( int j = 0; j < BODIES_COUNT; ++j) {
                 output_data << state[j].name << delimiter << state[j].position.x << delimiter << state[j].position.y << delimiter
                             << state[j].position.z<< std::endl;
             }
