@@ -70,31 +70,24 @@ PAIRS = tuple(combinations(SYSTEM))
 
 
 def advance(dt, n, bodies=SYSTEM, pairs=PAIRS):
-    with open('output2.csv', 'w') as f:
-        delimiter = ';'
-        f.write("Name of the body{}Position x{}Position y{}Position z\n".format(delimiter, delimiter, delimiter))
-        for i in range(n):
-            for ([x1, y1, z1], v1, m1, [x2, y2, z2], v2, m2) in pairs:
-                dx = x1 - x2
-                dy = y1 - y2
-                dz = z1 - z2
-                dist = sqrt(dx * dx + dy * dy + dz * dz)
-                mag = dt / (dist * dist * dist)
-                b1m = m1 * mag
-                b2m = m2 * mag
-                v1[0] -= dx * b2m
-                v1[1] -= dy * b2m
-                v1[2] -= dz * b2m
-                v2[2] += dz * b1m
-                v2[1] += dy * b1m
-                v2[0] += dx * b1m
-            for (r, [vx, vy, vz], m) in bodies:
-                r[0] += dt * vx
-                r[1] += dt * vy
-                r[2] += dt * vz
-            for key, value in BODIES.items():
-                body = key
-                f.write("{}{}{}{}{}{}{}\n".format(body, delimiter, value[0][0], delimiter, value[0][1], delimiter, value[0][2]))
+        for ([x1, y1, z1], v1, m1, [x2, y2, z2], v2, m2) in pairs:
+            dx = x1 - x2
+            dy = y1 - y2
+            dz = z1 - z2
+            dist = sqrt(dx * dx + dy * dy + dz * dz)
+            mag = dt / (dist * dist * dist)
+            b1m = m1 * mag
+            b2m = m2 * mag
+            v1[0] -= dx * b2m
+            v1[1] -= dy * b2m
+            v1[2] -= dz * b2m
+            v2[2] += dz * b1m
+            v2[1] += dy * b1m
+            v2[0] += dx * b1m
+        for (r, [vx, vy, vz], m) in bodies:
+            r[0] += dt * vx
+            r[1] += dt * vy
+            r[2] += dt * vz
 
 
 def report_energy(bodies=SYSTEM, pairs=PAIRS, e=0.0):
@@ -123,7 +116,14 @@ def main(n, ref="sun"):
     start = perf_counter()
     offset_momentum(BODIES[ref])
     report_energy()
-    advance(0.01, n)
+    with open('output2.csv', 'w') as f:
+        delimiter = ';'
+        f.write("Name of the body{}Position x{}Position y{}Position z\n".format(delimiter, delimiter, delimiter))
+        for i in range(n):
+            advance(0.01, n)
+            for key, value in BODIES.items():
+                body = key
+                f.write("{}{}{}{}{}{}{}\n".format(body, delimiter, value[0][0], delimiter, value[0][1], delimiter, value[0][2]))
     report_energy()
     end = perf_counter()
     print("Time elapsed: {:.4f}".format(end-start))

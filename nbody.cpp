@@ -263,8 +263,9 @@ int main(int argc, char **argv) {
         for (int i = 0; i < n; ++i) {
             advance(state, 0.01);
             for ( int j = 0; j < BODIES_COUNT; ++j) {
-                output_data << state[j].name << delimiter << state[j].position.x << delimiter << state[j].position.y << delimiter
-                            << state[j].position.z<< std::endl;
+                output_data << state[j].name << delimiter << state[j].position.x << delimiter << state[j].position.y
+                            << delimiter
+                            << state[j].position.z << std::endl;
             }
         }
         output_data.close();
