@@ -128,6 +128,7 @@ def main(n, ref="sun"):
     end = perf_counter()
     print("Time elapsed: {:.4f}".format(end-start))
 
+
 if __name__ == "__main__":
     if len(sys.argv) >= 2:
         main(int(sys.argv[1]))
@@ -137,5 +138,4 @@ if __name__ == "__main__":
         print("Call this program with an integer as program argument")
         print("(to set the number of iterations for the n-body simulation).")
         sys.exit(1)
-
 

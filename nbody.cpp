@@ -6,7 +6,7 @@
    An implementation pretty much from scratch, with inspiration from the Rust
    version, which used the idea of saving some of the ingredients of the
    compution in an array instead of recomputing them.
-   
+
    contributed by cvergu
    slightly modified by bmmeijers
 */
@@ -274,4 +274,3 @@ int main(int argc, char **argv) {
         return EXIT_SUCCESS;
     }
 }
-
